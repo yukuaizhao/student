@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>编辑学号{{student.stuNum}}学生信息</h3>
+  <div class="content">
+    <form id="editstu" method="POST" action="/edit">
+      <input type="hidden" name="stuNum" value="{{student.stuNum}}">
+      <input type="hidden" name="_id" value="{{student._id}}">
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">姓名</label>
+        <input name="stuName" type="text" class="form-control" id="exampleInputPassword1" placeholder="姓名"
+          value="{{student.stuName}}">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">年龄</label>
+        <input name="stuAge" type="text" class="form-control" id="exampleInputEmail1" placeholder="年龄"
+          value="{{student.stuAge}}">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">手机号</label>
+        <input name="stuPhone" type="text" class="form-control" id="exampleInputPassword1" placeholder="手机号"
+          value="{{student.stuPhone}}">
+      </div>
+
+
+      <button type="submit" class="btn btn-default">保存</button>
+      <span class="red" style="color: red;"></span>
+    </form>
+  </div>
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: rgb(221, 179, 175);
+    }
+
+    h3 {
+      text-align: center;
+    }
+
+    .content {
+      width: 60%;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding-left: 2rem;
+    }
+  </style>
+  <script src="/public/js/flexible.js"></script>
+  <script src="/public/js/jquery.js"></script>
+  <script>
+    $('#editstu').on('submit', function (e) {
+      e.preventDefault()
+      var formDate = $(this).serialize()
+      $.ajax({
+        url: '/edit',
+        type: 'post',
+        data: formDate,
+        dataType: 'json',
+        success: function (data) {
+          if (data.code_id === 0) {
+            $(".red").html('信息不能为空')
+          } else if (data.code_id === 1) {
+            window.location.href = '/stu'
+          } else if (data.code_id === 500) {
+            $(".red").html('服务器忙，稍后重试')
+          }
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

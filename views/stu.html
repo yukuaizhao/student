@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="stu">
+  <h1>学生信息表</h1>
+
+  <div class="user">
+    <span>{{mes}}</span>
+    <span>{{username}}</span>
+    <a href="/logout"><button>退出</button></a>
+  </div>
+ <a href="/addstu"><button>新增</button></a> 
+  <table class="table table-bordered">
+    <tr>
+      <td>编号</td>
+      <td>学号</td>
+      <td>姓名</td>
+      <td>年龄</td>
+      <td>联系方式</td>
+      <td>设置</td>
+    </tr>
+    {{each students}}
+    <tr>
+      <td>{{$index+1}}</td>
+      <td>{{$value.stuNum}}</td>
+      <td>{{$value.stuName}}</td>
+      <td>{{$value.stuAge}}</td>
+      <td>{{$value.stuPhone}}</td>
+      <td>
+        <a href="/edit?stuNum={{$value.stuNum}}">修改</a>/
+        <a href="/del?stuNum={{$value.stuNum}}">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+  </table>
+</div>
+</body>
+</html>
+<style>
+  body{
+    background-color: rgb(221, 179, 175);
+  }
+  .stu{
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+  .user{
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+</style>
